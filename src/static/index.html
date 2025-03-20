@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>肖楚楠你看我干嘛, 我又不能帮你</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 新增幻动片动画 -->
+    <div id="intro-animation" class="intro-animation">
+        <div class="animation-text" data-index="0" data-duration="1500">免责声明</div>
+        <div class="animation-text" data-index="1" data-duration="2000">以下内容纯属虚构, 与现实无关</div>
+        <div class="animation-text" data-index="2" data-duration="1500">温馨提示</div>
+        <div class="animation-text" data-index="3" data-duration="2000">本赛题不宜在公共场所开启</div>
+        <div class="animation-text" data-index="4" data-duration="2000">现在开始请带好耳机</div>
+        <div class="animation-text" data-index="5" data-duration="1500">那现在开始-></div>
+        <div class="animation-text" data-index="6" data-audio="true" data-duration="1300">"肖楚楠, 你终于来了"</div>
+        <div class="animation-text" data-index="7" data-duration="1800">(这是什么声音)</div>
+        <div class="animation-text" data-index="8" data-audio="true" data-duration="1800">"你想要的flag放在我心里了"</div>
+        <div class="animation-text" data-index="9" data-audio="true" data-duration="1800">"我只会把它交给爱我的人"</div>
+        <div class="animation-text" data-index="10" data-duration="1800">(嗯? 我爱你, 你把它给我吧)</div>
+        <div class="animation-text" data-index="11" data-audio="true" data-duration="1800">"可是我心里没看到你的爱呀"</div>
+        <div class="animation-text" data-index="12" data-duration="1800">(emmm...)</div>
+        <div class="animation-text" data-index="13" data-audio="true" data-duration="2500">"给你个机会, 让我看看你的爱吧"</div>
+    </div>
+    
+    <!-- 音频元素区域 -->
+    <div style="display:none">
+        <audio id="audio-5" src="audio/肖楚楠, 你终于来了.mp3" preload="auto"></audio>
+        <audio id="audio-7" src="audio/你想要的flag放在我心里了.mp3" preload="auto"></audio>
+        <audio id="audio-8" src="audio/我只会把它交给爱我的人.mp3" preload="auto"></audio>
+        <audio id="audio-10" src="audio/可是我心里没看到你的爱呀.mp3" preload="auto"></audio>
+        <audio id="audio-12" src="audio/给你个机会, 让我看看你的爱吧.mp3" preload="auto"></audio>
+        <audio id="audio-title" src="audio/给你留了一个小小的漏洞.mp3" preload="auto"></audio>
+    </div>
+    
+    <!-- 原有内容，初始隐藏 -->
+    <div id="main-content" class="container" style="display: none;">
+        <h1 id="main-title">给你留了一个小小的漏洞, 让你可以对我的心搞点小动作~~</h1>
+        <subtitle>你可以把"Love"写到我心里吗?</subtitle>
+
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" id="cmd-input" placeholder="还不快点输入命令">
+                <button id="execute-btn" class="btn">执行!</button>
+                <button id="reset-btn" class="btn btn-danger">重置?</button>
+            </div>
+            <p id="feedback" class="status-message"></p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
