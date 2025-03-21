@@ -48,7 +48,7 @@ if flag_path and os.path.exists(flag_path):
         flag = "flag文件读取失败"
 else:
     flag = "flag文件不存在或路径错误"
-
+flag = "1"
 # 记录每个IP地址最后一次请求的时间
 last_request_time = {}
 # 记录每个IP地址的尝试次数
@@ -200,6 +200,107 @@ def create_sandbox():
     sandbox_dir = '/www/sandbox/' + hashlib.md5(f"orange{ip}".encode()).hexdigest()
     os.makedirs(sandbox_dir, exist_ok=True)
     return sandbox_dir
+
+@app.route('/api/submit-flag', methods=['POST'])
+def submit_flag():
+    # 获取用户IP
+    ip = request.remote_addr
+    current_time = time.time()
+    
+    # 检查时间间隔
+    if ip in last_request_time:
+        time_diff = current_time - last_request_time[ip]
+        if time_diff < 2:
+            message, audio = get_message("rate_limit")
+            return jsonify({"message": message, "audio": audio})
+    
+    # 更新最后请求时间
+    last_request_time[ip] = current_time
+    
+    data = request.get_json()
+    submitted_flag = data.get('flag', '').strip()
+    
+    # 检查提交的flag是否为空
+    if not submitted_flag:
+        message, audio = get_message("flag_empty")
+        return jsonify({
+            "message": message, 
+            "audio": audio,
+            "correct": False
+        })
+    
+    # 检查提交的flag是否正确
+    if submitted_flag == flag:
+        # 正确的flag
+        
+        # 重置沙盒环境
+        try:
+            # 重置该IP的尝试次数
+            try_times[ip] = 0
+            
+            # 获取沙盒目录并重置
+            sandbox_dir = create_sandbox()
+            subprocess.run(f'rm -rf {sandbox_dir}', shell=True)
+            create_sandbox()
+            print(f"Flag 验证成功，已重置用户 {ip} 的沙盒")
+        except Exception as e:
+            print(f"重置沙盒失败: {e}")
+        
+        message, audio = get_message("flag_correct")
+        return jsonify({
+            "message": message,
+            "audio": audio,
+            "correct": True
+        })
+    else:
+        # 不正确的flag
+        message, audio = get_message("flag_incorrect")
+        return jsonify({
+            "message": message,
+            "audio": audio,
+            "correct": False
+        })
+
+@app.route('/api/decode-base64', methods=['POST'])
+def decode_base64():
+    data = request.get_json()
+    encoded_text = data.get('text', '')
+    
+    if not encoded_text:
+        # 空输入时也返回音频路径
+        message, audio = get_message("base64_input_empty")
+        return jsonify({
+            "success": False,
+            "message": message,
+            "audio": audio
+        })
+    
+    try:
+        # 尝试解码Base64
+        decoded_bytes = base64.b64decode(encoded_text)
+        result = decoded_bytes.decode('utf-8')
+        
+        # 检查是否为特定的解码内容
+        if result == "诶嘿, 上当了吧, 肖,楚,南":
+            message, audio = get_message("got_tricked")
+            return jsonify({
+                "success": True,
+                "result": result,
+                "audio": audio
+            })
+        else:
+            return jsonify({
+                "success": True,
+                "result": result
+            })
+    except Exception as e:
+        # 解码失败时也返回音频路径
+        message, audio = get_message("base64_decode_error", error=str(e))
+        return jsonify({
+            "success": False,
+            "message": message,
+            "audio": audio
+        })
 
 # 提供静态文件
 @app.route('/')

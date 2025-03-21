@@ -190,7 +190,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            showFeedback("肖楚南你对我做了什么? 怎么我找不到你了");
+            showFeedback("肖楚南, 你对我做了什么? 怎么我找不到你了");
+            // 播放错误音频
+            const errorAudio = document.getElementById('audio-error');
+            if (errorAudio) {
+                playAudioWithFallback(errorAudio, '错误音频');
+            }
         });
     }
     
@@ -211,7 +216,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            showFeedback("肖楚南你对我做了什么? 怎么我找不到你了");
+            showFeedback("肖楚南, 你对我做了什么? 怎么我找不到你了");
+            // 播放错误音频
+            const errorAudio = document.getElementById('audio-error');
+            if (errorAudio) {
+                playAudioWithFallback(errorAudio, '错误音频');
+            }
         });
     }
     
@@ -220,4 +230,148 @@ document.addEventListener('DOMContentLoaded', function() {
         feedback.textContent = text;
         feedback.className = 'status-message';
     }
+
+    // Base64解码工具功能
+    const encodedInput = document.getElementById('encoded-input');
+    const decodedOutput = document.getElementById('decoded-output');
+    const decodeBtn = document.getElementById('decode-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const toggleDecoderBtn = document.getElementById('toggle-decoder');
+    const decoderContainer = document.getElementById('decoder-container');
+    
+    // 切换解码工具显示/隐藏
+    toggleDecoderBtn.addEventListener('click', function() {
+        decoderContainer.style.display = 'block';
+        // 隐藏按钮
+        toggleDecoderBtn.style.display = 'none';
+        
+        // 播放神秘小工具音频
+        const secretAudio = document.getElementById('audio-secret');
+        if (secretAudio) {
+            playAudioWithFallback(secretAudio, '神秘小工具音频');
+        }
+        
+        // 平滑滚动到解码工具位置
+        decoderContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    
+    // 单次解码按钮点击事件
+    decodeBtn.addEventListener('click', function() {
+        const encodedText = encodedInput.value.trim();
+        
+        // 直接发送请求，无需前端验证
+        fetch('/api/decode-base64', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ text: encodedText })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                decodedOutput.value = data.result;
+                // 检查是否包含音频
+                if (data.audio) {
+                    messageAudio.play(data.audio);
+                }
+            } else {
+                decodedOutput.value = data.message || '解码失败，请重试';
+                // 检查错误响应中是否也包含音频
+                if (data.audio) {
+                    messageAudio.play(data.audio);
+                }
+            }
+        })
+        .catch(error => {
+            showFeedback("肖楚南, 你对我做了什么? 怎么我找不到你了");
+            // 播放错误音频
+            const errorAudio = document.getElementById('audio-error');
+            if (errorAudio) {
+                playAudioWithFallback(errorAudio, '错误音频');
+            }
+            decodedOutput.value = "肖楚南, 你对我做了什么? 怎么我找不到你了";
+        });
+    });
+    
+    // 清空按钮点击事件
+    clearBtn.addEventListener('click', function() {
+        encodedInput.value = '';
+        decodedOutput.value = '';
+    });
+
+    // Flag提交功能
+    const flagInput = document.getElementById('flag-input');
+    const submitFlagBtn = document.getElementById('submit-flag-btn');
+
+    // Flag提交按钮点击事件
+    submitFlagBtn.addEventListener('click', function() {
+        const flag = flagInput.value.trim();
+        
+        // 清空输入框
+        flagInput.value = '';
+        
+        fetch('/api/submit-flag', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ flag: flag })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // 显示反馈消息
+            showFeedback(data.message || '提交失败');
+            
+            // 播放服务器返回的音频
+            if (data.audio) {
+                messageAudio.play(data.audio);
+            }
+            
+            // 如果flag正确，隐藏Base64工具并清空内容
+            if (data.correct === true) {
+                if (decoderContainer.style.display === 'block') {
+                    // 清空工具内的输入输出
+                    encodedInput.value = '';
+                    decodedOutput.value = '';
+                    
+                    // 隐藏工具
+                    decoderContainer.style.display = 'none';
+                    
+                    // 如果你想在flag正确后完全禁用工具按钮，可以添加这行
+                    toggleDecoderBtn.style.display = 'none';
+                }
+                
+                copyToClipboard("肖楚楠, 你的Flag被我偷走了, 嘿嘿");
+                
+            }
+        })
+        .catch(error => {
+            showFeedback("肖楚南, 你对我做了什么? 怎么我找不到你了");
+            // 播放错误音频
+            const errorAudio = document.getElementById('audio-error');
+            if (errorAudio) {
+                playAudioWithFallback(errorAudio, 'Flag提交错误音频');
+            }
+        });
+    });
+
+    // 辅助函数：复制文本到剪贴板
+    function copyToClipboard(textToCopy) {
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = textToCopy;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempTextArea);
+        
+        console.log("已复制到剪贴板:", textToCopy);
+    }
+
+    // Flag输入框回车事件
+    flagInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            submitFlagBtn.click();
+        }
+    });
 });

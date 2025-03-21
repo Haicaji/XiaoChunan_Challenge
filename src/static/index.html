@@ -27,18 +27,20 @@
     
     <!-- 音频元素区域 -->
     <div style="display:none">
-        <audio id="audio-5" src="audio/肖楚楠, 你终于来了.mp3" preload="auto"></audio>
-        <audio id="audio-7" src="audio/你想要的flag放在我心里了.mp3" preload="auto"></audio>
-        <audio id="audio-8" src="audio/我只会把它交给爱我的人.mp3" preload="auto"></audio>
-        <audio id="audio-10" src="audio/可是我心里没看到你的爱呀.mp3" preload="auto"></audio>
-        <audio id="audio-12" src="audio/给你个机会, 让我看看你的爱吧.mp3" preload="auto"></audio>
-        <audio id="audio-title" src="audio/给你留了一个小小的漏洞.mp3" preload="auto"></audio>
+        <audio id="audio-5" src="audio/xcn_you_finally_came.mp3" preload="auto"></audio>
+        <audio id="audio-7" src="audio/flag_in_my_heart.mp3" preload="auto"></audio>
+        <audio id="audio-8" src="audio/only_give_to_lover.mp3" preload="auto"></audio>
+        <audio id="audio-10" src="audio/no_love_in_heart.mp3" preload="auto"></audio>
+        <audio id="audio-12" src="audio/show_me_your_love.mp3" preload="auto"></audio>
+        <audio id="audio-title" src="audio/small_vulnerability.mp3" preload="auto"></audio>
+        <audio id="audio-error" src="audio/what_did_you_do.mp3" preload="auto"></audio>
+        <audio id="audio-secret" src="audio/secret_tool.mp3" preload="auto"></audio>
     </div>
     
     <!-- 原有内容，初始隐藏 -->
     <div id="main-content" class="container" style="display: none;">
         <h1 id="main-title">给你留了一个小小的漏洞(小到只能放下4个字符), 让你可以对我的心搞点小动作~~</h1>
-        <subtitle>你可以把"Love"写到我心里吗?</subtitle>
+        <subtitle>你可以把"Love"写到我心里吗?(这里页面找找看, 我给你留了个神秘小工具哦)</subtitle>
 
         <div class="form-group">
             <div class="input-group">
@@ -48,6 +50,36 @@
             </div>
             <p id="feedback" class="status-message"></p>
         </div>
+        
+        <!-- Flag提交窗口 -->
+        <div class="flag-container">
+            <h2>提交Flag</h2>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" id="flag-input" placeholder="请输入Flag...">
+                    <button id="submit-flag-btn" class="btn">提交</button>
+                </div>
+                <!-- 移除单独的flag反馈元素，使用共享的反馈区域 -->
+            </div>
+        </div>
+
+        <!-- Base64解码工具 - 默认隐藏，移除重复的分割线 -->
+        <div id="decoder-container" class="decoder-container" style="display: none; border-top: none;">
+            <h2>神秘小工具</h2>
+            <div class="form-group">
+                <textarea id="encoded-input" class="decoder-input" placeholder="这里可以放你要解密的Base64哦......"></textarea>
+                <div class="decoder-buttons">
+                    <button id="decode-btn" class="btn">解码记得点这里</button>
+                    <button id="clear-btn" class="btn btn-danger">这里可以清空哦</button>
+                </div>
+                <textarea id="decoded-output" class="decoder-output" placeholder="解码结果会在这里哦......" readonly></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 透明解码工具切换按钮 -->
+    <div class="decoder-toggle-container">
+        <button id="toggle-decoder" class="decoder-toggle-btn">神秘小工具</button>
     </div>
     
     <script src="script.js"></script>

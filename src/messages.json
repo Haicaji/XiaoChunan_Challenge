@@ -21,5 +21,12 @@
   "length_over_10": "你是故意的还是不小心的? 你会把漏洞搞坏的",
   "length_over_4": "你有听到我说话吗, 只能输4个字符, 再这样不给你Flag",
   "sandbox_reset": "写不进去就要换一个了是吗, 肖楚楠",
-  "sandbox_reset_failed": "肖楚楠, 你干了什么, 怎么把我心搞坏了"
+  "sandbox_reset_failed": "肖楚楠, 你干了什么, 怎么把我心搞坏了",
+  "flag_correct": "你又上当了, Flag 不是交这里的啦",
+  "flag_incorrect": "肖楚楠, 不知道Flag就不要乱试!",
+  "base64_decode_failed": "怎么?Base64解码工具都不会用了吗?",
+  "got_tricked": "诶嘿，上当了吧，肖楚南",
+  "base64_input_empty": "怎么?Base64解码工具都不会用了吗?",
+  "base64_decode_error": "怎么?Base64解码工具都不会用了吗?",
+  "flag_empty": "疑, 这是你的Flag吗? 我怎么什么都没看到?"
 }

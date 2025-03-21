@@ -191,3 +191,96 @@ input[type="text"] {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+
+/* Base64解码工具样式 */
+.decoder-container {
+    margin-top: 50px;
+    /* 移除顶部边框，避免重复 */
+    /* border-top: 1px solid #ddd; */
+    padding-top: 30px;
+}
+
+.decoder-container h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.decoder-input, .decoder-output {
+    width: 100%;
+    min-height: 120px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 14px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+.decoder-output {
+    background-color: #f8f9fa;
+    margin-top: 10px;
+}
+
+.decoder-buttons {
+    display: flex;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.decoder-info {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* 解码工具切换按钮样式 */
+.decoder-toggle-container {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+    padding: 5px 0;
+}
+
+.decoder-toggle-btn {
+    padding: 5px 40px;
+    background-color: transparent;
+    color: rgba(52, 152, 219, 0.5);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    width: 80%;
+    max-width: 400px;
+}
+
+.decoder-toggle-btn:hover {
+    color: rgba(44, 62, 80, 0.8);
+}
+
+/* Flag提交窗口样式 */
+.flag-container {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    border-top: 1px solid #ddd;
+    /* 移除底部边框，避免重复 */
+    /* border-bottom: 1px solid #ddd; */
+    padding: 20px 0;
+}
+
+/* 响应式调整 */
+@media (max-width: 600px) {
+    .decoder-buttons {
+        flex-direction: column;
+    }
+    
+    .decoder-buttons .btn {
+        margin-bottom: 5px;
+    }
+}
