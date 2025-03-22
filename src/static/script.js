@@ -344,6 +344,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 copyToClipboard("肖楚楠, 你的Flag被我偷走了, 嘿嘿");
                 
+                // 检查是否需要显示补偿按钮
+                if (data.show_compensation) {
+                    showCompensationButton();
+                }
             }
         })
         .catch(error => {
@@ -355,6 +359,41 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // 新增：显示补偿按钮的函数
+    function showCompensationButton() {
+        // 检查是否已存在补偿按钮，避免重复创建
+        if (document.getElementById('compensation-btn')) {
+            return;
+        }
+        
+        // 创建按钮容器
+        const compensationContainer = document.createElement('div');
+        compensationContainer.className = 'compensation-container';
+        compensationContainer.style.textAlign = 'center';
+        compensationContainer.style.marginTop = '20px';
+        
+        // 创建按钮
+        const compensationBtn = document.createElement('button');
+        compensationBtn.id = 'compensation-btn';
+        compensationBtn.className = 'btn';
+        compensationBtn.textContent = '补偿';
+        compensationBtn.style.backgroundColor = '#ff6b81';
+        compensationBtn.style.padding = '10px 30px';
+        compensationBtn.style.fontSize = '18px';
+        
+        // 添加点击事件
+        compensationBtn.addEventListener('click', function() {
+            window.open('https://search.bilibili.com/all?vt=30812257&keyword=%E5%85%94%E5%A8%98', '_blank');
+        });
+        
+        // 添加到DOM中
+        compensationContainer.appendChild(compensationBtn);
+        
+        // 在反馈信息之后插入按钮
+        const feedback = document.getElementById('feedback');
+        feedback.parentNode.insertBefore(compensationContainer, feedback.nextSibling);
+    }
 
     // 辅助函数：复制文本到剪贴板
     function copyToClipboard(textToCopy) {

@@ -26,7 +26,13 @@
   "flag_incorrect": "肖楚楠, 不知道Flag就不要乱试!",
   "base64_decode_failed": "怎么?Base64解码工具都不会用了吗?",
   "got_tricked": "诶嘿，上当了吧，肖楚南",
+  "got_tricked_2": "嘿嘿, 还有一层",
   "base64_input_empty": "怎么?Base64解码工具都不会用了吗?",
   "base64_decode_error": "怎么?Base64解码工具都不会用了吗?",
-  "flag_empty": "疑, 这是你的Flag吗? 我怎么什么都没看到?"
+  "flag_empty": "疑, 这是你的Flag吗? 我怎么什么都没看到?",
+  "flag_times_tell": "诶嘿, 想再获取Flag吗? 那重新开始吧",
+  "flag_correct_2": "都跟你说了, 不是这里提交 Flag, 你还不信, 肖楚楠, 你真是个笨蛋, 那我给你个补偿吧",
+  "rev_executed": "R, E, V, 这是什么命令, 我怎么没见过",
+  "star_executed": "一闪一闪亮晶晶, 我心里有你的小星星, 但是我不会给你Flag哦",
+  "greater_than_executed": "这是什么东西, 怎么尖尖的"
 }

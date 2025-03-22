@@ -48,11 +48,14 @@ if flag_path and os.path.exists(flag_path):
         flag = "flag文件读取失败"
 else:
     flag = "flag文件不存在或路径错误"
-flag = "1"
+# flag = "1"
 # 记录每个IP地址最后一次请求的时间
 last_request_time = {}
 # 记录每个IP地址的尝试次数
 try_times = {}
+# 记录输入正确flag的次数
+flag_times = {}
+flag_times_tell = {}
 
 app = Flask(__name__, static_url_path='')
 
@@ -77,10 +80,18 @@ def execute_command():
     if ip not in try_times:
         try_times[ip] = 0
     try_times[ip] += 1
+    if ip not in flag_times:
+        flag_times[ip] = 0
+    if ip not in flag_times_tell:
+        flag_times_tell[ip] = 0
     
     data = request.get_json()
     cmd = data.get('cmd', '')
-    
+    if flag_times_tell[ip] < flag_times[ip]:
+        flag_times_tell[ip] += 1
+        message, audio = get_message("flag_times_tell")
+        return jsonify({"message": message, "audio": audio})
+
     if len(cmd) == 0:
         message, audio = get_message("command_empty")
         return jsonify({"message": message, "audio": audio})
@@ -127,6 +138,15 @@ def execute_command():
                 return jsonify({"message": message, "audio": audio})
             if 'dir' in cmd.lower():
                 message, audio = get_message("dir_executed")
+                return jsonify({"message": message, "audio": audio})
+            if 'rev' in cmd.lower():
+                message, audio = get_message("rev_executed")
+                return jsonify({"message": message, "audio": audio})
+            if r'*' in cmd.lower():
+                message, audio = get_message("star_executed")
+                return jsonify({"message": message, "audio": audio})
+            if r'>' in cmd.lower():
+                message, audio = get_message("greater_than_executed")
                 return jsonify({"message": message, "audio": audio})
             if 'sh' in cmd.lower():
                 message, audio = get_message("sh_executed")
@@ -232,6 +252,8 @@ def submit_flag():
     # 检查提交的flag是否正确
     if submitted_flag == flag:
         # 正确的flag
+        if flag_times_tell[ip] == flag_times[ip]:
+            flag_times[ip] += 1
         
         # 重置沙盒环境
         try:
@@ -246,12 +268,21 @@ def submit_flag():
         except Exception as e:
             print(f"重置沙盒失败: {e}")
         
-        message, audio = get_message("flag_correct")
-        return jsonify({
-            "message": message,
-            "audio": audio,
-            "correct": True
-        })
+        if flag_times[ip] == 1:
+            message, audio = get_message("flag_correct")
+            return jsonify({
+                "message": message,
+                "audio": audio,
+                "correct": True
+            })
+        else:
+            message, audio = get_message("flag_correct_2")
+            return jsonify({
+                "message": message,
+                "audio": audio,
+                "correct": True,
+                "show_compensation": True  # 添加标记，告诉前端显示补偿按钮
+            })
     else:
         # 不正确的flag
         message, audio = get_message("flag_incorrect")
@@ -283,6 +314,13 @@ def decode_base64():
         # 检查是否为特定的解码内容
         if result == "诶嘿, 上当了吧, 肖,楚,南":
             message, audio = get_message("got_tricked")
+            return jsonify({
+                "success": True,
+                "result": result,
+                "audio": audio
+            })
+        if "嘿嘿, 还有一层" in result:
+            message, audio = get_message("got_tricked_2")
             return jsonify({
                 "success": True,
                 "result": result,
