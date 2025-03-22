@@ -56,6 +56,7 @@ try_times = {}
 # 记录输入正确flag的次数
 flag_times = {}
 flag_times_tell = {}
+greater_than_time = {}
 
 app = Flask(__name__, static_url_path='')
 
@@ -84,6 +85,8 @@ def execute_command():
         flag_times[ip] = 0
     if ip not in flag_times_tell:
         flag_times_tell[ip] = 0
+    if ip not in greater_than_time:
+        greater_than_time[ip] = 0
     
     data = request.get_json()
     cmd = data.get('cmd', '')
@@ -145,7 +148,8 @@ def execute_command():
             if r'*' in cmd.lower():
                 message, audio = get_message("star_executed")
                 return jsonify({"message": message, "audio": audio})
-            if r'>' in cmd.lower():
+            if r'>' in cmd.lower() and greater_than_time[ip] == 0:
+                greater_than_time[ip] += 1
                 message, audio = get_message("greater_than_executed")
                 return jsonify({"message": message, "audio": audio})
             if 'sh' in cmd.lower():
@@ -202,6 +206,7 @@ def reset_sandbox():
     
     # 重置该IP的尝试次数
     try_times[ip] = 0
+    greater_than_time[ip] = 0
     
     sandbox_dir = create_sandbox()
     try:
@@ -312,7 +317,7 @@ def decode_base64():
         result = decoded_bytes.decode('utf-8')
         
         # 检查是否为特定的解码内容
-        if result == "诶嘿, 上当了吧, 肖,楚,南":
+        if result == "诶嘿, 上当了吧, 萧,楚,南":
             message, audio = get_message("got_tricked")
             return jsonify({
                 "success": True,

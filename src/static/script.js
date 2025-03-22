@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 创建动画索引到音频ID的映射
     const audioMapping = {
-        6: 'audio-5',  // "肖楚楠, 你终于来了"
+        6: 'audio-5',  // "萧楚楠, 你终于来了"
         8: 'audio-7',  // "flag放在我心里了"
         9: 'audio-8',  // "我只会把它给爱我的人"
         11: 'audio-10', // "可是我心里没看到你的爱呀"
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            showFeedback("肖楚南, 你对我做了什么? 怎么我找不到你了");
+            showFeedback("萧楚南, 你对我做了什么? 怎么我找不到你了");
             // 播放错误音频
             const errorAudio = document.getElementById('audio-error');
             if (errorAudio) {
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            showFeedback("肖楚南, 你对我做了什么? 怎么我找不到你了");
+            showFeedback("萧楚南, 你对我做了什么? 怎么我找不到你了");
             // 播放错误音频
             const errorAudio = document.getElementById('audio-error');
             if (errorAudio) {
@@ -284,13 +284,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            showFeedback("肖楚南, 你对我做了什么? 怎么我找不到你了");
+            showFeedback("萧楚南, 你对我做了什么? 怎么我找不到你了");
             // 播放错误音频
             const errorAudio = document.getElementById('audio-error');
             if (errorAudio) {
                 playAudioWithFallback(errorAudio, '错误音频');
             }
-            decodedOutput.value = "肖楚南, 你对我做了什么? 怎么我找不到你了";
+            decodedOutput.value = "萧楚南, 你对我做了什么? 怎么我找不到你了";
         });
     });
     
@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     toggleDecoderBtn.style.display = 'none';
                 }
                 
-                copyToClipboard("肖楚楠, 你的Flag被我偷走了, 嘿嘿");
+                copyToClipboard("萧楚楠, 你的Flag被我偷走了, 嘿嘿");
                 
                 // 检查是否需要显示补偿按钮
                 if (data.show_compensation) {
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            showFeedback("肖楚南, 你对我做了什么? 怎么我找不到你了");
+            showFeedback("萧楚南, 你对我做了什么? 怎么我找不到你了");
             // 播放错误音频
             const errorAudio = document.getElementById('audio-error');
             if (errorAudio) {
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 添加点击事件
         compensationBtn.addEventListener('click', function() {
-            window.open('https://search.bilibili.com/all?vt=30812257&keyword=%E5%85%94%E5%A8%98', '_blank');
+            window.open('https://search.bilibili.com/all?keyword=%E5%85%94%E5%A8%98', '_blank');
         });
         
         // 添加到DOM中
