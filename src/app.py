@@ -317,7 +317,7 @@ def decode_base64():
         result = decoded_bytes.decode('utf-8')
         
         # 检查是否为特定的解码内容
-        if result == "诶嘿, 上当了吧, 萧,楚,南":
+        if "诶嘿, 上当了吧" in result:
             message, audio = get_message("got_tricked")
             return jsonify({
                 "success": True,
