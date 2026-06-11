@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>萧楚楠你看我干嘛, 我又不能帮你</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 新增幻动片动画 -->
+    <div id="intro-animation" class="intro-animation">
+        <div class="animation-text" data-index="0" data-duration="1500">免责声明</div>
+        <div class="animation-text" data-index="1" data-duration="2200">以下内容由AI生成, 与现实无关, 注意辨别</div>
+        <div class="animation-text" data-index="2" data-duration="1500">温馨提示</div>
+        <div class="animation-text" data-index="3" data-duration="2000">本赛题不宜在公共场所开启</div>
+        <div class="animation-text" data-index="4" data-duration="2000">现在开始请带好耳机</div>
+        <div class="animation-text" data-index="5" data-duration="1500">那现在开始-></div>
+        <div class="animation-text" data-index="6" data-audio="true" data-duration="1300">"萧楚楠, 你终于来了"</div>
+        <div class="animation-text" data-index="7" data-duration="1800">(这是什么声音)</div>
+        <div class="animation-text" data-index="8" data-audio="true" data-duration="1800">"你想要的flag放在我心里了"</div>
+        <div class="animation-text" data-index="9" data-audio="true" data-duration="1800">"我只会把它交给爱我的人"</div>
+        <div class="animation-text" data-index="10" data-duration="1800">(嗯? 我爱你, 你把它给我吧)</div>
+        <div class="animation-text" data-index="11" data-audio="true" data-duration="1800">"可是我心里没看到你的爱呀"</div>
+        <div class="animation-text" data-index="12" data-duration="1800">(emmm...)</div>
+        <div class="animation-text" data-index="13" data-audio="true" data-duration="2500">"给你个机会, 让我看看你的爱吧"</div>
+    </div>
+    
+    <!-- 音频元素区域 -->
+    <div style="display:none">
+        <audio id="audio-5" src="audio/xcn_you_finally_came.mp3" preload="auto"></audio>
+        <audio id="audio-7" src="audio/flag_in_my_heart.mp3" preload="auto"></audio>
+        <audio id="audio-8" src="audio/only_give_to_lover.mp3" preload="auto"></audio>
+        <audio id="audio-10" src="audio/no_love_in_heart.mp3" preload="auto"></audio>
+        <audio id="audio-12" src="audio/show_me_your_love.mp3" preload="auto"></audio>
+        <audio id="audio-title" src="audio/small_vulnerability.mp3" preload="auto"></audio>
+        <audio id="audio-error" src="audio/what_did_you_do.mp3" preload="auto"></audio>
+        <audio id="audio-secret" src="audio/secret_tool.mp3" preload="auto"></audio>
+    </div>
+    
+    <!-- 原有内容，初始隐藏 -->
+    <div id="main-content" class="container" style="display: none;">
+        <h1 id="main-title">给你留了一个小小的漏洞(小到只能放下4个字符), 让你可以对我的心搞点小动作~~</h1>
+        <subtitle>你可以把"Love"写到我心里吗?(这里页面找找看, 我给你留了个神秘小工具哦)</subtitle>
+
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" id="cmd-input" placeholder="还不快点输入命令">
+                <button id="execute-btn" class="btn">执行!</button>
+                <button id="reset-btn" class="btn btn-danger">重置?</button>
+            </div>
+            <p id="feedback" class="status-message"></p>
+        </div>
+        
+        <!-- Flag提交窗口 -->
+        <div class="flag-container">
+            <h2>提交Flag</h2>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" id="flag-input" placeholder="请输入Flag...">
+                    <button id="submit-flag-btn" class="btn">提交</button>
+                </div>
+                <!-- 移除单独的flag反馈元素，使用共享的反馈区域 -->
+            </div>
+        </div>
+
+        <!-- Base64解码工具 - 默认隐藏，移除重复的分割线 -->
+        <div id="decoder-container" class="decoder-container" style="display: none; border-top: none;">
+            <h2>神秘小工具</h2>
+            <div class="form-group">
+                <textarea id="encoded-input" class="decoder-input" placeholder="这里可以放你要解密的Base64哦......"></textarea>
+                <div class="decoder-buttons">
+                    <button id="decode-btn" class="btn">解码记得点这里</button>
+                    <button id="clear-btn" class="btn btn-danger">这里可以清空哦</button>
+                </div>
+                <textarea id="decoded-output" class="decoder-output" placeholder="解码结果会在这里哦......" readonly></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 透明解码工具切换按钮 -->
+    <div class="decoder-toggle-container">
+        <button id="toggle-decoder" class="decoder-toggle-btn">神秘小工具</button>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
