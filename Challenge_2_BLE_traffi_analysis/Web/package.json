@@ -1,0 +1,27 @@
+{
+  "name": "ble-unlock-ctf-pwa",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "start": "node ../Docker/server.mjs",
+    "test": "vitest run tests/protocol.test.ts",
+    "test:docker": "node --test ../Docker/tests/server.test.mjs",
+    "test:esp32": "python ../ESP32/tests/firmware_protocol_test.py"
+  },
+  "dependencies": {
+    "lucide-react": "^0.475.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5"
+  }
+}
